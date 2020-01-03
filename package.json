@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "自己简单实现的webpack",
   "main": "index.js",
+  "bin": "./bin/y-webpack.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

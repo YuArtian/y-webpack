@@ -6,6 +6,8 @@ const argv = require('yargs').argv
 const ora = require('ora')
 const chalk = require('chalk')
 const y_webpack = require('../lib/y-webpack')
+const delDir = require('./tools/delDir')
+const log = console.log;
 //当前工作目录
 const projectPath = process.cwd()
 //当前配置文件
@@ -42,8 +44,8 @@ _config.output = path.join(projectPath, _config.output)
 
 /* 初始化 */
 function init () {
-  let spinner = ora('开始打包')
-  spinner.start()
+  console.log('init');
+  let spinner = ora(chalk.blue('开始打包...')).start()
   //找不到入口文件
   if (!fs.existsSync(_config.entry)) {
     spinner.stop()
@@ -53,14 +55,18 @@ function init () {
   const result = y_webpack(_config)
   //输出打包结果
   try {
+    spinner.info('开始写入文件')
+    if (fs.existsSync(_config.output)) {
+      spinner.warn('已存在文件夹')
+      delDir(_config.output)
+    }
     fs.mkdirSync(path.dirname(_config.output))
     fs.writeFileSync(_config.output, result)
   } catch (error) {
-    spinner.stop()
-    chalk.red('打包输出出错')
+    log(chalk.red('打包输出出错'),error)
+    spinner.stop(chalk.red('打包输出出错'))
   }
-  spinner.stop()
-  chalk.green('已生成对应文件')
+  spinner.succeed('已生成对应文件')
 }
 
 init()
