@@ -18,7 +18,7 @@ let _config = Object.create(null)
 //入口
 _config.entry = 'src/index.js'
 //出口
-_config.output = 'dist/bunlde.js'
+_config.output = 'dist'
 
 /* 配置文件处理 */
 if(fs.existsSync(configPath)){
@@ -40,7 +40,10 @@ if (options[1]) {
 /* 最终可用配置处理 */
 //实际入口路径
 _config.entry = path.join(projectPath, _config.entry)
+//实际出口文件夹
 _config.output = path.join(projectPath, _config.output)
+//入口文件所在目录
+_config.context = path.dirname(_config.entry)
 
 /* 初始化 */
 function init () {
@@ -59,14 +62,15 @@ function init () {
     if (fs.existsSync(_config.output)) {
       spinner.warn('已存在文件夹')
       delDir(_config.output)
+      spinner.warn('已删除旧文件夹')
     }
-    fs.mkdirSync(path.dirname(_config.output))
-    fs.writeFileSync(_config.output, result)
+    fs.mkdirSync(_config.output)
+    fs.writeFileSync(_config.output + '/bunlde.js', result)
+    spinner.succeed('已生成对应文件')
   } catch (error) {
     log(chalk.red('打包输出出错'),error)
     spinner.stop(chalk.red('打包输出出错'))
   }
-  spinner.succeed('已生成对应文件')
 }
 
 init()
