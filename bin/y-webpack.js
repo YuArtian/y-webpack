@@ -46,18 +46,17 @@ _config.output = path.join(projectPath, _config.output)
 _config.context = path.dirname(_config.entry)
 
 /* 初始化 */
-function init () {
-  console.log('init');
-  let spinner = ora(chalk.blue('开始打包...')).start()
-  //找不到入口文件
-  if (!fs.existsSync(_config.entry)) {
-    spinner.stop()
-    chalk.red('找不到入口文件')
-  }
-  //获取打包结果
-  const result = y_webpack(_config)
-  //输出打包结果
+async function init () {
   try {
+    let spinner = ora(chalk.blue('开始打包...')).start()
+    //找不到入口文件
+    if (!fs.existsSync(_config.entry)) {
+      spinner.stop()
+      chalk.red('找不到入口文件')
+    }
+    //获取打包结果
+    const result = await y_webpack(_config)
+    //输出打包结果
     spinner.info('开始写入文件')
     if (fs.existsSync(_config.output)) {
       spinner.warn('已存在文件夹')

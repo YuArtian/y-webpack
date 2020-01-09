@@ -1,1 +1,3 @@
-const a = 'aaa'
+import a from './a.js'
+
+console.log('a',a);
