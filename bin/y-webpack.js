@@ -48,21 +48,23 @@ _config.context = path.dirname(_config.entry)
 /* 初始化 */
 async function init () {
   try {
-    let spinner = ora(chalk.blue('开始打包...')).start()
+    let spinner = ora(chalk.blue('开始打包。。。')).start()
     //找不到入口文件
     if (!fs.existsSync(_config.entry)) {
       spinner.stop()
       chalk.red('找不到入口文件')
     }
-    //获取打包结果
+    spinner.text = '打包中。。。'
+    //等待打包 获取打包结果
     const result = await y_webpack(_config)
     //输出打包结果
-    spinner.info('开始写入文件')
+    spinner.text = '开始写入文件'
     if (fs.existsSync(_config.output)) {
       spinner.warn('已存在文件夹')
       delDir(_config.output)
       spinner.warn('已删除旧文件夹')
     }
+    spinner.text = '文件写入中。。。'
     fs.mkdirSync(_config.output)
     fs.writeFileSync(_config.output + '/bunlde.js', result)
     spinner.succeed('已生成对应文件')

@@ -11,7 +11,7 @@
       require('/Users/XueYu.Zhao/Documents/own/y-webpack/src/index.js')
     })({'/Users/XueYu.Zhao/Documents/own/y-webpack/src/index.js': function (module, exports, require) { "use strict";
 
-var _a = _interopRequireDefault(require("./a.js"));
+var _a = _interopRequireDefault(require("/Users/XueYu.Zhao/Documents/own/y-webpack/src/a.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -22,9 +22,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _b = _interopRequireDefault(require("./b.js"));
+var _b = _interopRequireDefault(require("/Users/XueYu.Zhao/Documents/own/y-webpack/src/b.js"));
 
-var _c = _interopRequireDefault(require("./c.js"));
+var _c = _interopRequireDefault(require("/Users/XueYu.Zhao/Documents/own/y-webpack/src/c.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
